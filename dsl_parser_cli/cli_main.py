@@ -10,7 +10,13 @@ subparsers = parser.add_subparsers(help='sub-command help')
 
 # create the parser for the "a" command
 parser_validate = subparsers.add_parser('validate',help='validate help')
-parser_validate.add_argument('--path')
+parser_validate.add_argument('-p','--blueprint-path',dest='path',help='the path to blueprint yaml file')
 parser_validate.set_defaults(func=cli_actions.validate)
 args = parser.parse_args()
-args.func(args)
+
+def main():
+    args.func(args)
+
+
+if __name__ == '__main__':
+    main()
