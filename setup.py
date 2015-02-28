@@ -14,7 +14,7 @@
 #    * limitations under the License.
 
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 install_requires = [
@@ -32,7 +32,7 @@ setup(
     version='0.0.0',
     author='Gigaspaces',
     author_email='cosmo-admin@gigaspaces.com',
-    packages=['dsl_parser_cli'],
+    packages= find_packages(),
     license='LICENSE',
     description='Cloudify DSL parser command line',
     entry_points={
