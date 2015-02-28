@@ -1,8 +1,8 @@
 from dsl_parser import parser
 import urllib2
 import yaml
-from lib.list_operations.get_operations import get_for_plugin
-from lib.list_operations.get_package_name import extract_plugin_dir
+from tasks.list_operations.get_operations import get_for_plugin
+from tasks.list_operations.get_package_name import extract_plugin_dir
 import sys, traceback
 
 
