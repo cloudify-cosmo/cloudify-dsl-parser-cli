@@ -1,5 +1,6 @@
 from dsl_parser import parser
 import urllib2
+import json
 import yaml
 from tasks.list_operations.get_operations import get_for_plugin
 from tasks.list_operations.get_package_name import extract_plugin_dir
@@ -54,8 +55,8 @@ def list_operations( args ):
             plugin_data = plugins_data['plugins'][plugin_name]
             results.append({ 'plugin_name' : plugin_name, 'operations' : get_for_plugin( plugin_data ) })
 
-
-        print(results)
+        # json.dumps - used to get output with double quotes - http://stackoverflow.com/a/18283758/1068746
+        print(json.dumps(results))
     except Exception as e:
         print('unable to list operations on plugin. {0}'.format( e ) )
         traceback.print_exc(file=sys.stdout)
