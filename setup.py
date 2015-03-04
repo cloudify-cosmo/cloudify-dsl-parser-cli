@@ -18,7 +18,7 @@ from setuptools import setup, find_packages
 
 
 install_requires = [
-    'cloudify-dsl-parser==3.2a4'  ,
+    'cloudify-dsl-parser==3.2a4',
     'cloudify-plugins-common==3.2a4'
 ]
 
@@ -33,7 +33,7 @@ setup(
     version='0.0.0',
     author='Gigaspaces',
     author_email='cosmo-admin@gigaspaces.com',
-    packages= find_packages(),
+    packages=find_packages(),
     license='LICENSE',
     description='Cloudify DSL parser command line',
     entry_points={

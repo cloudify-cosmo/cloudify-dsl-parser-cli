@@ -1,10 +1,13 @@
-from dsl_parser import parser
+import sys
+import traceback
 import urllib2
 import json
 import yaml
+
+from dsl_parser import parser
+
 from tasks.list_operations.get_operations import get_for_plugin
 from tasks.list_operations.get_package_name import extract_plugin_dir
-import sys, traceback
 
 
 """
@@ -13,7 +16,8 @@ import sys, traceback
     If exposed by a cli, this module defines the subcommands
 """
 
-def validate( args ):
+
+def validate(args):
     """
     Validates a blueprint using the official dsl parser
 
@@ -33,30 +37,24 @@ def validate( args ):
     except Exception as e:
         print(e)
 
-def plugin_extract( args ):
+
+def plugin_extract(args):
     try:
-        extract_plugin_dir( args.plugin_source_url, args.dest_dir )
+        extract_plugin_dir(args.plugin_source_url, args.dest_dir)
     except Exception as e:
-        print('unable to extract plugin to dir [{0}]. {1}'.format( args.dest_dir, e))
+        print('unable to extract plugin to dir [{0}]. {1}'
+              .format(args.dest_dir, e))
 
 
-
-
-def list_operations( args ):
+def list_operations(args):
     try:
-        results = []
-
         plugins_yaml = urllib2.urlopen(args.plugin_url).read()
-        plugins_data = yaml.load( plugins_yaml )
-        if 'plugins' not in plugins_data:
-            raise Exception('invalid plugin yaml. missing plugins field')
-
-        for plugin_name in plugins_data['plugins']:
-            plugin_data = plugins_data['plugins'][plugin_name]
-            results.append({ 'plugin_name' : plugin_name, 'operations' : get_for_plugin( plugin_data ) })
-
-        # json.dumps - used to get output with double quotes - http://stackoverflow.com/a/18283758/1068746
+        plugins_data = yaml.load(plugins_yaml)
+        results = [{'plugin_name': plugin_name,
+                    'operations': get_for_plugin(plugin_data)}
+                   for plugin_name, plugin_data
+                   in plugins_data.get('plugins', {}).items()]
         print(json.dumps(results))
     except Exception as e:
-        print('unable to list operations on plugin. {0}'.format( e ) )
+        print('unable to list operations on plugin. {0}'.format(e))
         traceback.print_exc(file=sys.stdout)
