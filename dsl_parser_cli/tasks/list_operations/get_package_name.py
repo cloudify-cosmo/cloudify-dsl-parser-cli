@@ -5,13 +5,13 @@ should be called with the directory containing setup.py as the first argument
 
 import setuptools
 import sys
-from os import path
-import pip
-import tempfile
 import shutil
 import os
 import pipes
+from os import path
 from subprocess import Popen, PIPE
+
+import pip
 
 result = None
 
@@ -71,13 +71,13 @@ def is_pip6_or_higher(pip_version=None):
 
 
 # based on https://github.com/cloudify-cosmo/cloudify-manager/blob/master/plugins/plugin-installer/plugin_installer/tasks.py  # noqa
-def download_plugin(plugin_url):
+def download_plugin(plugin_url, plugin_dir):
     """
 
         :param plugin_url: url to download
         :return: directory where extracted plugin can be found
     """
-    plugin_dir = tempfile.mkdtemp()
+
     download_args = ['cfy-dsl-parser',
                      'plugin-extract',
                      '--plugin-source-url',
@@ -89,7 +89,6 @@ def download_plugin(plugin_url):
     if p.returncode != 0:
         raise Exception('error when download. [{0}] , [{1}]'
                         .format(output, err))
-    return plugin_dir
 
 
 def extract_plugin_dir(plugin_url, plugin_dir):
@@ -124,12 +123,12 @@ def extract_plugin_dir(plugin_url, plugin_dir):
     return plugin_dir
 
 
-def get_package_name(plugin_url):
+def get_package_name(plugin_url, plugin_dir):
     """
         :param plugin_url: plugin url
         :return: the plugin's package name
     """
-    root_dir = download_plugin(plugin_url)
+    download_plugin(plugin_url, plugin_dir)
 
     # patch for setuptools.py that prints the package name
     # to stdout (also supports pbr packages)
@@ -137,11 +136,11 @@ def get_package_name(plugin_url):
         if pbr:
             import ConfigParser
             config = ConfigParser.ConfigParser()
-            config.read(path.join(root_dir, 'setup.cfg'))
+            config.read(path.join(plugin_dir, 'setup.cfg'))
             name = config.get('metadata', 'name')
         if name is None:
             sys.stderr.write('Failed finding extracting package name for'
-                             ' package located at: {0}'.format(root_dir))
+                             ' package located at: {0}'.format(plugin_dir))
             sys.exit(1)
         global result
         result = name
@@ -153,7 +152,7 @@ def get_package_name(plugin_url):
     # sys.path.insert(0, root_dir)
     # # The line below is important
     # import setup  # NOQA
-    execfile(root_dir + '/setup.py')
+    execfile(plugin_dir + '/setup.py')
     # setuptools.setup = backup
-    shutil.rmtree(root_dir)
+
     return result

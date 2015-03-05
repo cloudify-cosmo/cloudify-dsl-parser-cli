@@ -10,9 +10,14 @@ To run this POC you need to do the following
 3. Add __init__.py files to make directories into packages
 """
 
-import plugin_installer
+import tempfile
+import shutil
+import os
 from subprocess import Popen, PIPE
+
 import cloudify.decorators
+
+import plugin_installer
 
 from get_package_name import get_package_name
 
@@ -65,6 +70,11 @@ def get_for_plugin(plugin_data):
     if 'source' not in plugin_data:
         raise Exception('invalid plugin_data. source is missing')
     plugin_source = plugin_data['source']
-    package_name = get_package_name(plugin_source)
-    plugin_installer.install(plugin_source)
-    return get_for_package(package_name)
+    plugin_dir = tempfile.mkdtemp()
+    try:
+        package_name = get_package_name(plugin_source, plugin_dir)
+        plugin_installer.install(plugin_dir, plugin_data)
+        return get_for_package(package_name)
+    finally:
+        if plugin_dir and os.path.exists(plugin_dir):
+            shutil.rmtree(plugin_dir)
