@@ -1,4 +1,4 @@
-import urllib2
+import requests
 import json
 import yaml
 
@@ -47,7 +47,7 @@ def plugin_extract(args):
 
 def list_operations(args):
     try:
-        plugins_yaml = urllib2.urlopen(args.plugin_url).read()
+        plugins_yaml = requests.get(args.plugin_url).text
         plugins_data = yaml.load(plugins_yaml)
         results = [{'plugin_name': plugin_name,
                     'operations': get_for_plugin(plugin_data)}
