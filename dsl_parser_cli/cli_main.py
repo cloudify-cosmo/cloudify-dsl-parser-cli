@@ -1,4 +1,3 @@
-import logging
 import argparse
 import cli_actions
 import cli_logger
@@ -25,8 +24,8 @@ def _parse():
     parser_list_operations = subparsers.add_parser('list-operations',
                                                    help='list operations'
                                                         'for plugin')
-    parser_list_operations.add_argument('--plugin-url',
-                                        dest='plugin_url',
+    parser_list_operations.add_argument('--blueprint-url',
+                                        dest='blueprint_url',
                                         help='url for plugin yaml',
                                         required=True)
     parser_list_operations.set_defaults(func=cli_actions.list_operations)

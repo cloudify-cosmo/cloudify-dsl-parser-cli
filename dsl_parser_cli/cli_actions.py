@@ -1,6 +1,7 @@
 import requests
 import json
 import yaml
+import sys
 
 from dsl_parser import parser
 
@@ -40,19 +41,21 @@ def validate(args):
 def plugin_extract(args):
     try:
         extract_plugin_dir(args.plugin_source_url, args.dest_dir)
-    except Exception as e:
-        cli_logger.error('unable to extract plugin to dir [{0}]. {1}'
-                         .format(args.dest_dir, e))
+    except:
+        cli_logger.exception('unable to extract plugin to dir [{0}]'
+                             .format(args.dest_dir))
+        sys.exit(1)
 
 
 def list_operations(args):
     try:
-        plugins_yaml = requests.get(args.plugin_url).text
-        plugins_data = yaml.load(plugins_yaml)
+        blueprint_yaml = requests.get(args.blueprint_url).text
+        blueprint_data = yaml.load(blueprint_yaml)
         results = [{'plugin_name': plugin_name,
                     'operations': get_for_plugin(plugin_data)}
                    for plugin_name, plugin_data
-                   in plugins_data.get('plugins', {}).items()]
+                   in blueprint_data.get('plugins', {}).items()]
         cli_logger.info(json.dumps(results))
     except:
         cli_logger.exception('unable to list operations on plugin')
+        sys.exit(1)
