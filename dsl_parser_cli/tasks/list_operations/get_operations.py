@@ -68,7 +68,7 @@ def get_for_package(package_name):
 
 def get_for_plugin(plugin_data):
     if 'source' not in plugin_data:
-        raise Exception('invalid plugin_data. source is missing')
+        return []
     plugin_source = plugin_data['source']
     plugin_dir = tempfile.mkdtemp()
     try:
