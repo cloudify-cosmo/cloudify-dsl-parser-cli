@@ -1,15 +1,11 @@
 import logging
 import argparse
 import cli_actions
+import cli_logger
 
 # http://stackoverflow.com/questions/17626694/remove-python-userwarning
 import warnings
 warnings.filterwarnings("ignore")
-
-logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s - %(name)s '
-                           '- %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
 
 
 def _parse():
@@ -51,6 +47,7 @@ def _parse():
 
 
 def main():
+    cli_logger.init()
     args = _parse()
     args.func(args)
 

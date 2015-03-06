@@ -1,11 +1,10 @@
-import sys
-import traceback
 import urllib2
 import json
 import yaml
 
 from dsl_parser import parser
 
+import cli_logger
 from tasks.list_operations.get_operations import get_for_plugin
 from tasks.list_operations.get_package_name import extract_plugin_dir
 
@@ -35,15 +34,15 @@ def validate(args):
     try:
         parser.parse_from_path(args.blueprint_path)
     except Exception as e:
-        print(e)
+        cli_logger.error(e)
 
 
 def plugin_extract(args):
     try:
         extract_plugin_dir(args.plugin_source_url, args.dest_dir)
     except Exception as e:
-        print('unable to extract plugin to dir [{0}]. {1}'
-              .format(args.dest_dir, e))
+        cli_logger.error('unable to extract plugin to dir [{0}]. {1}'
+                         .format(args.dest_dir, e))
 
 
 def list_operations(args):
@@ -54,7 +53,6 @@ def list_operations(args):
                     'operations': get_for_plugin(plugin_data)}
                    for plugin_name, plugin_data
                    in plugins_data.get('plugins', {}).items()]
-        print(json.dumps(results))
-    except Exception as e:
-        print('unable to list operations on plugin. {0}'.format(e))
-        traceback.print_exc(file=sys.stdout)
+        cli_logger.info(json.dumps(results))
+    except:
+        cli_logger.exception('unable to list operations on plugin')

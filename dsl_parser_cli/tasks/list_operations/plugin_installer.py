@@ -4,7 +4,6 @@ from subprocess import Popen, PIPE
 
 
 def install(plugin_dir, plugin_data):
-    print('installing..')
     """
         installs the plugin. yaml looks like this
         <pre>
