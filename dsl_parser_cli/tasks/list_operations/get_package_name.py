@@ -3,14 +3,13 @@ hack-ish script to extract the name field from a python package
 should be called with the directory containing setup.py as the first argument
 """
 
-import setuptools
-import sys
 import shutil
 import os
 import pipes
 from os import path
 from subprocess import Popen, PIPE
 
+import setuptools
 import pip
 
 result = None
@@ -128,7 +127,7 @@ def get_package_name(plugin_url, plugin_dir):
         :param plugin_url: plugin url
         :return: the plugin's package name
     """
-    download_plugin(plugin_url, plugin_dir)
+    download_plugin(plugin_url=plugin_url, plugin_dir=plugin_dir)
 
     # patch for setuptools.py that prints the package name
     # to stdout (also supports pbr packages)
@@ -139,9 +138,8 @@ def get_package_name(plugin_url, plugin_dir):
             config.read(path.join(plugin_dir, 'setup.cfg'))
             name = config.get('metadata', 'name')
         if name is None:
-            sys.stderr.write('Failed finding extracting package name for'
-                             ' package located at: {0}'.format(plugin_dir))
-            sys.exit(1)
+            raise Exception('Failed finding extracting package name for'
+                            ' package located at: {0}'.format(plugin_dir))
         global result
         result = name
         # sys.stdout.write(name)

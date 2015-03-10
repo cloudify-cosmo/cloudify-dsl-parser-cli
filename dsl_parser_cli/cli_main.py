@@ -1,6 +1,7 @@
 import argparse
-import cli_actions
-import cli_logger
+
+from dsl_parser_cli import cli_actions
+from dsl_parser_cli import cli_logger
 
 # http://stackoverflow.com/questions/17626694/remove-python-userwarning
 import warnings

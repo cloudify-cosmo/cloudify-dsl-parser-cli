@@ -1,25 +1,14 @@
-"""
-This POC shows how to get cloudify plugin operations
-
-To run this POC you need to do the following
-
-1. Get a virtualenv with cloudify-plugins-common
-   installed - plugins may reference this
-2. Get a plugin's source and put it relative to this
-   source at folder X (see what X is below)
-3. Add __init__.py files to make directories into packages
-"""
-
 import tempfile
 import shutil
 import os
+
 from subprocess import Popen, PIPE
 
 import cloudify.decorators
 
-import plugin_installer
-
-from get_package_name import get_package_name
+from dsl_parser_cli.tasks.list_operations import plugin_installer
+from dsl_parser_cli.tasks.list_operations.get_package_name \
+    import get_package_name
 
 operations = []
 
