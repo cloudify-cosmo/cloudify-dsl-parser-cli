@@ -25,8 +25,6 @@ cloudify.decorators.operation = op_hook
 
 def extract_module_paths(plugin_name):
 
-    # print('getting paths for ' + plugin_name)
-
     module_paths = []
     p = Popen(['pip', 'show', '-f', plugin_name],
               stdin=PIPE,
