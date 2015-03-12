@@ -14,12 +14,14 @@
 #    * limitations under the License.
 
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 install_requires = [
-    'cloudify-dsl-parser==3.2a5'
-    ]
+    'cloudify-dsl-parser==3.2a5',
+    'cloudify-plugins-common==3.2a5',
+    'requests'
+]
 
 try:
     from collections import OrderedDict  # NOQA
@@ -29,10 +31,10 @@ except ImportError, e:
 
 setup(
     name='cloudify-dsl-parser-cli',
-    version='0.0.0',
+    version='0.1',
     author='Gigaspaces',
     author_email='cosmo-admin@gigaspaces.com',
-    packages=['dsl_parser_cli'],
+    packages=find_packages(),
     license='LICENSE',
     description='Cloudify DSL parser command line',
     entry_points={
