@@ -1,7 +1,7 @@
 import sys
+import json
 
 import requests
-import json
 import yaml
 
 
