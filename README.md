@@ -18,4 +18,12 @@ the list-operations command will install the plugins specified in the plugin yam
 
 we recommend you activate it each time in a new virtualenv which you should later delete.
 
+## How to install
+
+clone and run
+
+```
+pip install  -rdev-requirements.txt . --no-deps
+```
+
 
