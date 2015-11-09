@@ -18,8 +18,8 @@ from setuptools import setup, find_packages
 
 
 install_requires = [
-    'cloudify-dsl-parser==3.3',
-    'cloudify-plugins-common==3.3',
+    'cloudify-dsl-parser==3.3rc1',
+    'cloudify-plugins-common==3.3rc1',
 
 ]
 
