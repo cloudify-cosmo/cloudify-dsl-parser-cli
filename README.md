@@ -26,4 +26,14 @@ clone and run
 pip install  -rdev-requirements.txt . --no-deps
 ```
 
+# How to run the cli
+
+ - use a virtualenv
+ - clone the repository
+ - run `pip install -r dev-requirements.txt` - this will install your dependencies
+ - run `pip install .` - this will install the cli wrapper for the parser
+
+now if you run `cfy-dsl-parser` you will see it is installed
+
+to configure the composer to use this parser, just point to the virtual environment.
 
