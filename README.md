@@ -30,8 +30,7 @@ pip install  -rdev-requirements.txt . --no-deps
 
  - use a virtualenv
  - clone the repository
- - run `pip install -r dev-requirements.txt` - this will install your dependencies
- - run `pip install .` - this will install the cli wrapper for the parser
+ - run `pip install -r dev-requirements.txt .` - this will install your dependencies and the cli
 
 now if you run `cfy-dsl-parser` you will see it is installed
 
