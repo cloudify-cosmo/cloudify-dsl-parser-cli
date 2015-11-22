@@ -33,7 +33,7 @@ pushd $PROJECT_BASE_DIR
 
 
     mkdir -p ${ARTIFACTS_DIR}
-    wagon create -s . -r dev-requirements.txt -o ${ARTIFACTS_DIR}
+    wagon create -s . -r -o ${ARTIFACTS_DIR}
 
     # clean left overs from wagon
     rm -rf ${PROJECT_BASE_DIR}/wheelhouse
