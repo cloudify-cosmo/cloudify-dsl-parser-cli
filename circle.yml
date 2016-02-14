@@ -9,4 +9,9 @@ test:
 #    - tox -e flake8
 #    - tox -e py27
     - tox -e docs
-#
+
+deployment:
+  release:
+    tag: /.*/
+    commands:
+      - (true)
