@@ -18,8 +18,8 @@ from setuptools import setup, find_packages
 
 
 install_requires = [
-    'cloudify-dsl-parser==3.4a1',
-    'cloudify-plugins-common==3.4a1',
+    'cloudify-dsl-parser==3.4',
+    'cloudify-plugins-common==3.4',
 
 ]
 
@@ -31,7 +31,7 @@ except ImportError, e:
 
 setup(
     name='cloudify-dsl-parser-cli',
-    version='3.4a1',
+    version='3.4',
     author='Gigaspaces',
     author_email='cosmo-admin@gigaspaces.com',
     packages=find_packages(),
